@@ -599,94 +599,96 @@ class ArticleContent extends ResourceBase {
 			foreach($details[$value] as $clkey => $clitem){
 				
 				$id = $clitem['value'];
-				$cl_object = \Drupal\field_collection\Entity\FieldCollectionItem::load($id);
-				//$cl_object_array = $cl_object->toArray();
-				$field_values[$id] = [];							
-				
-				foreach ($cl_object as $fclkey => $fclfield){
+				if ($id) {
+					$cl_object = \Drupal\field_collection\Entity\FieldCollectionItem::load($id);
+					//$cl_object_array = $cl_object->toArray();
+					$field_values[$id] = [];							
 					
-					switch ($fclkey) {
-
-						case 'item_id':
-						case 'field_clinical_pres_label':
-						case 'field_basic_science_label':
-						case 'field_pathoanatomy_label':
-						case 'field_images_label':
-						case 'field_treatment_label':
-						case 'field_hand_therapy_label':
-						case 'field_video_title':
-						case 'field_presentation_label':
-
-							$field_values[$id][$fclkey] = $fclfield->value;
-							break;
-
-						case 'field_clinical_pres_photos':
-						case 'field_basic_sci_photos':
-						case 'field_pathoanat_photos':
-						case 'field_images_upload':
-						case 'field_upload_treat_pics':
-						case 'field_hand_therapy_pics':
-						case 'field_clinical_pres_pics':
-
-							//$field_values[$id][$fclkey] = $fclfield;
-							$cl_images = [];
-							foreach ($fclfield as $imkey => $imvalue) {
-								
-								$image = \Drupal\file\Entity\File::load($imvalue->target_id);
-								
-								if($image){
-									$cl_images[] = array(
-										'target_id' => $imvalue->target_id,
-										'alt' => $imvalue->alt,
-										'title' => $imvalue->title,
-										'width' => $imvalue->width,
-										'height' => $imvalue->height,												
-										'url' => $image->url(),
-										'name' => $image->getFilename(),
-										'mime_type' => $image->getMimeType()											
-									);
-								}
-								
-							}
-							$field_values[$id][$fclkey] = $cl_images;
-							break;
-
-						case 'field_upload_video':
-							
-							$cl_files = [];
-							foreach ($fclfield as $imkey => $imvalue) {
-								
-								$file = \Drupal\file\Entity\File::load($imvalue->target_id);
-								
-								if($file){
-									$cl_files[] = array(
-										'target_id' => $imvalue->target_id,
-										'url' => $file->url(),
-										'name' => $file->getFilename(),
-										'mime_type' => $file->getMimeType(),
-										'size' => $file->getSize()												
-									);
-								}
-								
-							}
-							$field_values[$id][$fclkey] = $cl_files;
-							break;
-
-						case 'field_video_title_yt':									
-							$field_values[$id][$fclkey] = $fclfield->value;										
-							break;
-
-						case 'field_youtube_video':
-							$field_values[$id][$fclkey.'_input'] = $fclfield->input;
-							$field_values[$id][$fclkey.'_video_id'] = $fclfield->video_id;										
-							break;		
+					foreach ($cl_object as $fclkey => $fclfield){
 						
-						default:									
-							break;
+						switch ($fclkey) {
 
-					}					
-			  						            
-		        }
+							case 'item_id':
+							case 'field_clinical_pres_label':
+							case 'field_basic_science_label':
+							case 'field_pathoanatomy_label':
+							case 'field_images_label':
+							case 'field_treatment_label':
+							case 'field_hand_therapy_label':
+							case 'field_video_title':
+							case 'field_presentation_label':
+
+								$field_values[$id][$fclkey] = $fclfield->value;
+								break;
+
+							case 'field_clinical_pres_photos':
+							case 'field_basic_sci_photos':
+							case 'field_pathoanat_photos':
+							case 'field_images_upload':
+							case 'field_upload_treat_pics':
+							case 'field_hand_therapy_pics':
+							case 'field_clinical_pres_pics':
+
+								//$field_values[$id][$fclkey] = $fclfield;
+								$cl_images = [];
+								foreach ($fclfield as $imkey => $imvalue) {
+									
+									$image = \Drupal\file\Entity\File::load($imvalue->target_id);
+									
+									if($image){
+										$cl_images[] = array(
+											'target_id' => $imvalue->target_id,
+											'alt' => $imvalue->alt,
+											'title' => $imvalue->title,
+											'width' => $imvalue->width,
+											'height' => $imvalue->height,												
+											'url' => $image->url(),
+											'name' => $image->getFilename(),
+											'mime_type' => $image->getMimeType()											
+										);
+									}
+									
+								}
+								$field_values[$id][$fclkey] = $cl_images;
+								break;
+
+							case 'field_upload_video':
+								
+								$cl_files = [];
+								foreach ($fclfield as $imkey => $imvalue) {
+									
+									$file = \Drupal\file\Entity\File::load($imvalue->target_id);
+									
+									if($file){
+										$cl_files[] = array(
+											'target_id' => $imvalue->target_id,
+											'url' => $file->url(),
+											'name' => $file->getFilename(),
+											'mime_type' => $file->getMimeType(),
+											'size' => $file->getSize()												
+										);
+									}
+									
+								}
+								$field_values[$id][$fclkey] = $cl_files;
+								break;
+
+							case 'field_video_title_yt':									
+								$field_values[$id][$fclkey] = $fclfield->value;										
+								break;
+
+							case 'field_youtube_video':
+								$field_values[$id][$fclkey.'_input'] = $fclfield->input;
+								$field_values[$id][$fclkey.'_video_id'] = $fclfield->video_id;										
+								break;		
+							
+							default:									
+								break;
+
+						}					
+													
+					}
+				}
 
 			}
 			
