@@ -642,7 +642,7 @@ class ArticleContent extends ResourceBase {
 											'title' => $imvalue->title,
 											'width' => $imvalue->width,
 											'height' => $imvalue->height,												
-											'url' => $image->url(),
+											'url' => $image->createFileUrl(FALSE),
 											'name' => $image->getFilename(),
 											'mime_type' => $image->getMimeType()											
 										);
@@ -662,7 +662,7 @@ class ArticleContent extends ResourceBase {
 									if($file){
 										$cl_files[] = array(
 											'target_id' => $imvalue->target_id,
-											'url' => $file->url(),
+											'url' => $file->createFileUrl(FALSE),
 											'name' => $file->getFilename(),
 											'mime_type' => $file->getMimeType(),
 											'size' => $file->getSize()												
@@ -781,7 +781,7 @@ class ArticleContent extends ResourceBase {
 				
 				$imid = $imvalue['target_id'];
 				$image = \Drupal\file\Entity\File::load($imid);
-								
+				
 				if($image){
 					$field_values[$imid] = array(
 						'target_id' => $imid,
@@ -789,7 +789,7 @@ class ArticleContent extends ResourceBase {
 						'title' => $imvalue['title'],
 						'width' => $imvalue['width'],
 						'height' => $imvalue['height'],												
-						'url' => $image->url(),
+						'url' => $image->createFileUrl(FALSE),
 						'name' => $image->getFilename(),
 						'mime_type' => $image->getMimeType()											
 					);
@@ -807,7 +807,7 @@ class ArticleContent extends ResourceBase {
 				if($file){
 					$field_values[$fid] = array(
 						'target_id' => $fid,
-						'url' => $file->url(),
+						'url' => $file->createFileUrl(FALSE),
 						'name' => $file->getFilename(),
 						'mime_type' => $file->getMimeType(),
 						'size' => $file->getSize()											
