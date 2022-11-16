@@ -433,8 +433,7 @@ class ArticleContent extends ResourceBase {
 		
 	}
 
-	private function process_field_pdf($value, $details, $html = ''){
-		
+	private function process_field_pdf($value, $details, $html = ''){		
 		if(	$value == 'description' ){
 			$html .= $details['values'][0]['processed'];
 		}
@@ -506,7 +505,7 @@ class ArticleContent extends ResourceBase {
 			
 		}
 		elseif(	$value == 'field_symptoms_1' ){
-			foreach($details['values'] as $clitem){
+			foreach($details['values'] as $clitem){				
 				$html .= '<div class="pdf-label">'.$clitem['value'].'</div>';
 			}
 		}				
@@ -597,8 +596,8 @@ class ArticleContent extends ResourceBase {
 		){
 			$multiple = true;
 			foreach($details[$value] as $clkey => $clitem){
-				
-				$id = $clitem['value'];
+				//field_youtube_video':				
+				$id = $clitem['target_id'];
 				if ($id) {
 					$cl_object = \Drupal\field_collection\Entity\FieldCollectionItem::load($id);
 					//$cl_object_array = $cl_object->toArray();
@@ -678,6 +677,7 @@ class ArticleContent extends ResourceBase {
 								break;
 
 							case 'field_youtube_video':
+								
 								$field_values[$id][$fclkey.'_input'] = $fclfield->input;
 								$field_values[$id][$fclkey.'_video_id'] = $fclfield->video_id;										
 								break;		
