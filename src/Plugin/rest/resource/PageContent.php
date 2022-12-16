@@ -51,11 +51,13 @@ class PageContent extends ResourceBase {
 	const ANATOMY_BODY_SYSTEMS_SLUG = '/body-systems';
 	const TUMORS_SLUG = '/tumors';
 	const CONGENITAL_SLUG = '/congenital';
+	const HAND_THERAPY_LIBRARY_SLUG = '/handtherapy';
 	const BOOKMARKS_SLUG = '/bookmarks';
 
 	const DIAGNOSIS_MACHINE_NAME = 'diagnosis';
 	const TEST_AND_SIGN_MACHINE_NAME = 'test_and_sign_list';
 	const DIAGNOSTIC_STUDIES_MACHINE_NAME = 'work_up_options';
+	const HAND_THERAPY_LIBRARY_MACHINE_NAME = 'hand_therapy_library';
 	const ANATOMY_MACHINE_NAME = 'anatomic_parts';
 	const BODY_SYSTEMS_MACHINE_NAME = 'body_systems';
 
@@ -144,6 +146,9 @@ class PageContent extends ResourceBase {
 		    }
 		    else if ($page == self::CONGENITAL_SLUG) {
 				$response = $this->get_congenital_diagnosis_list();
+		    }
+			else if ($page == self::HAND_THERAPY_LIBRARY_SLUG) {
+				$response = $this->get_normal_published_term_list(self::HAND_THERAPY_LIBRARY_MACHINE_NAME);
 		    }
 		    else if ($page == self::BOOKMARKS_SLUG) {
 				$response = $this->get_bookmarks();

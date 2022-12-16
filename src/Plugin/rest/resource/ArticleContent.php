@@ -130,7 +130,7 @@ class ArticleContent extends ResourceBase {
 		$cat = $term->bundle();
 
 		//$cat != PageContent::DIAGNOSIS_MACHINE_NAME && $cat != PageContent::TEST_AND_SIGN_MACHINE_NAME && $cat != PageContent::DIAGNOSTIC_STUDIES_MACHINE_NAME
-		if($cat != 'diagnosis' && $cat != 'test_and_sign_list' && $cat != 'work_up_options'){
+		if($cat != 'diagnosis' && $cat != 'test_and_sign_list' && $cat != 'work_up_options' && $cat != 'hand_therapy_library'){
 			throw new BadRequestHttpException('Article from invalid vocabulary');
 		}		
 
@@ -194,6 +194,13 @@ class ArticleContent extends ResourceBase {
 				'field_diagnoses_where_this_study',
 				'field_comments_and_pearls',
 				'field_references'
+			),
+			'hand_therapy_library' => array(
+				'field_diagnoses_associated_with_',
+				'field_comments_and',
+				'field_images',
+				'field_references',
+				'field_videos'
 			)
 		);
 
@@ -521,7 +528,8 @@ class ArticleContent extends ResourceBase {
 			$value == 'field_references' ||
 			$value == 'field_positive_definition' ||
 			$value == 'field_negative_definition' ||
-			$value == 'field_comments_and_pearls'
+			$value == 'field_comments_and_pearls' ||
+			$value == 'field_comments_and'
 		){ 
 			$html .= $details['values'][0]['processed'];
 		}
@@ -709,7 +717,8 @@ class ArticleContent extends ResourceBase {
 			$value == 'field_references' ||
 			$value == 'field_positive_definition' ||
 			$value == 'field_negative_definition' ||
-			$value == 'field_comments_and_pearls'
+			$value == 'field_comments_and_pearls' ||
+			$value == 'field_comments_and'
 		){ 
 			if(isset($details[$value][0]['value']))
 				$details[$value][0]['processed'] = check_markup($details[$value][0]['value'], 'full_html');
