@@ -2,7 +2,7 @@ name: Custom Module For handsurgeryresource.org
 type: module
 description: Customized module for handsurgeryresource.org
 core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: Hand Surgery Resource
 dependencies:
   - drupal:rest
